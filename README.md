@@ -1,65 +1,122 @@
-# Adversarial Verify · 对抗验证
+<div align="center">
+  <h1>⚔️ Adversarial Verify · 对抗验证</h1>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-skill-D97757?style=flat-square)](https://claude.ai/code)
+  <p><strong>Pack your project. Let an adversarial AI find the bottlenecks you're blind to.</strong></p>
 
-**把系统/方案/代码打包，发给独立的对抗AI做深度诊断。** 不是"提几个优化建议"——是让另一个AI用"我不同意你的做法"的心态，找到你习以为常但实际上是瓶颈的设计选择。
+  <p>
+    <a href="https://github.com/Arykozhang/adversarial-verify/stargazers">
+      <img src="https://img.shields.io/github/stars/Arykozhang/adversarial-verify?style=for-the-badge&color=FFD700&labelColor=050b1f&logo=github" alt="Stars" />
+    </a>
+    <a href="LICENSE">
+      <img src="https://img.shields.io/github/license/Arykozhang/adversarial-verify?style=for-the-badge&color=blue&labelColor=050b1f" alt="MIT License" />
+    </a>
+    <img src="https://img.shields.io/badge/Claude%20Code-skill-D97757?style=for-the-badge&labelColor=050b1f" alt="Claude Code Skill" />
+    <img src="https://img.shields.io/github/last-commit/Arykozhang/adversarial-verify?style=for-the-badge&color=22c55e&labelColor=050b1f&logo=git&logoColor=white" alt="Last commit" />
+  </p>
 
-## 这是什么？
+  <p>
+    <a href="README_CN.md">中文文档</a>
+  </p>
+</div>
 
-一个 Claude Code Skill。当你卡在某个瓶颈——分数提不上去、方案有盲区、不知道从哪里改进——它帮你把整个项目打包成对抗AI能理解的材料包，并生成结构化的攻击任务书。
+---
 
-跟普通的"问AI意见"不同：
-- 普通问法：把问题描述一下，AI给几个建议
-- 对抗验证：把项目历史、迭代过程、失败案例、核心代码、输出样例**全部打包**，再指定攻击方向，让AI做系统性诊断
+## What is this?
 
-## 快速开始
+A **Claude Code Skill** that packs your project into structured materials and sends them to an independent adversarial AI for deep diagnosis.
+
+This is not "ask AI for a few suggestions." It's a systematic audit: you package your entire project — history, iterations, failed attempts, source code, outputs — into a flat 20-file brief, and another AI attacks it from 4 directions to find the design choices you've normalized into blindness.
+
+## Why adversarial?
+
+| Ordinary approach | Adversarial Verify |
+|---|---|
+| Describe the problem → AI gives tips | Package the *whole project* → AI runs a structured audit |
+| AI doesn't know what you've tried | You tell it: "AST approach was tried and abandoned" (so it won't suggest it again) |
+| You get generic advice | You get P0/P1/P2-graded findings with file references and fix specs |
+| You implement alone | Each fix comes with acceptance criteria — you know when it's done |
+
+## How it works
+
+```
+  ╔══════════════════════════════════════════════════════╗
+  ║                  ADVERSARIAL VERIFY                  ║
+  ╠══════════════════════════════════════════════════════╣
+  ║                                                      ║
+  ║  Step 1        Step 2        Step 3–4      Step 5    ║
+  ║  ┌──────┐     ┌──────┐     ┌──────────┐   ┌──────┐   ║
+  ║  │SCOPE │ ──▶ │PACK  │ ──▶ │ GENERATE │──▶│SEND  │   ║
+  ║  │check │     │20-50 │     │ tasks +  │   │to    │   ║
+  ║  │level │     │files │     │ message  │   │adv.AI│   ║
+  ║  └──────┘     └──────┘     └──────────┘   └──────┘   ║
+  ║                                      │               ║
+  ║                                      ▼               ║
+  ║  Step 6                  Step 7          ┌──────┐    ║
+  ║  ┌──────────────┐      ┌──────────┐     │adv.AI│    ║
+  ║  │P0 fix / P1   │ ◀─── │CLEANUP   │ ◀── │reply │    ║
+  ║  │schedule / P2 │      │stale     │     │with  │    ║
+  ║  │log           │      │artifacts │     │audit │    ║
+  ║  └──────────────┘      └──────────┘     └──────┘    ║
+  ║                                                      ║
+  ╚══════════════════════════════════════════════════════╝
+```
+
+**Step 1** — Confirm scope: current metrics, target benchmark, known bottlenecks, iteration history.
+
+**Step 2** — Assemble the 7-category material pack using `templates/package-structure.md`: background docs, representative samples, core source code, system outputs, methodology notes, full dataset, and the mission brief. All flat, ≤50 files.
+
+**Step 3** — Generate a mission document (4 attack directions with specific deliverables) using `templates/task-document.md`.
+
+**Step 4** — Generate a ready-to-paste message for the adversarial AI using `templates/message-template.md`.
+
+**Step 5** — The user uploads the files and sends the message.
+
+**Step 6** — Process the adversarial AI's reply using `templates/execution-command-template.md`: P0 (blocking) → fix immediately, P1 (important) → schedule, P2 (optimization) → log.
+
+**Step 7** — **Interference cleanup**: after deploying fixes, purge stale artifacts (old agent scripts, expired SystemPrompts, `__pycache__`, obsolete CSVs) that could silently break the new system.
+
+## Quick install
 
 ```bash
 git clone https://github.com/Arykozhang/adversarial-verify.git \
   ~/.claude/skills/adversarial-verify
 ```
 
-然后在 Claude Code 中输入：
+Then in Claude Code:
 
 ```
 /adversarial-verify
 ```
 
-触发词：`对抗验证`、`找AI评审`、`四轮验证`、`adversarial verify`、`魔鬼代言人`
+Trigger words: `对抗验证` · `找AI评审` · `四轮验证` · `adversarial verify` · `魔鬼代言人`
 
-## 工作流
+## Real-world pattern
 
-1. **确认项目范围** — 当前水平、对标基准、已知瓶颈
-2. **按模板组装材料包** — 7类材料（背景/样本/源码/输出/方法论/数据/任务书），扁平目录，不超过50份文件
-3. **生成任务书** — 4个攻击方向 + 具体交付要求
-4. **生成沟通文案** — 可直接粘贴到对抗AI对话框
-5. **打包交付** — 用户上传文件 + 发送文案
-6. **处理回复** — P0（阻断）→ 立即修 / P1（重要）→ 排期修 / P2（优化）→ 记录
+> Fictional example illustrating the complete workflow. All data and names are invented.
 
-## 为什么需要完整打包？
+Xiao Zhang built a "Smart Code Review Agent" — it audits GitHub PRs and suggests fixes. After three iterations he hit a wall: 78% recall, 35% false positives. An open-source project claimed 92% / 12%.
 
-对抗AI没有你之前对话的记忆。如果你只说"帮我改进这个系统"，它只能泛泛而谈。但如果你告诉它：
-- 你试过AST方案后来废弃了（避免它再建议AST）
-- 你在泛型场景下漏报率特别高（它可以直接切入）
-- 你的LLM prompt里缺了什么信息（它能一眼看出盲区）
+He ran `/adversarial-verify`, packed 29 files across 7 categories (iteration history, abandoned AST approach, known generic-type blind spots, 200-test-PR dataset, current prompt templates, system behavior traces for 10 key cases), and sent them with a 4-axis mission brief.
 
-——它就能给出**你真正需要的诊断**，而不是重复你已经知道的建议。
+The adversarial AI returned 17 findings. **P0-1**: the regex `<T extends \w+>` matched single-layer generics but missed nested `<T extends Comparable<T>>` — causing ~6% missed detections. **P0-3**: the prompt asked the LLM to check for null pointers but never fed it variable type information — the LLM was guessing blind.
 
-## 文件结构
+After fixes and Step 7 cleanup (deleted the old `ast_reviewer.py`, purged `__pycache__`): recall jumped from 78% to 87%.
+
+## Project layout
 
 ```
 adversarial-verify/
-├── SKILL.md                              # 核心指令（Claude Code 加载入口）
-├── README.md                             # 本文件
-├── LICENSE
-└── templates/                            # 4个可复用模板
-    ├── package-structure.md              # 材料包结构清单（7类20项）
-    ├── task-document.md                  # 对抗AI任务书模板
-    ├── message-template.md               # 沟通文案模板
-    └── execution-command-template.md     # 回复执行命令模板
+├── SKILL.md                              # Core instructions (Claude Code loads this)
+├── README.md                             # You are here
+├── README_CN.md                          # 完整中文文档
+├── LICENSE                               # MIT
+└── templates/                            # 4 reusable templates
+    ├── package-structure.md              # 7-category packing checklist
+    ├── task-document.md                  # Adversarial AI mission brief
+    ├── message-template.md               # Ready-to-paste communication script
+    └── execution-command-template.md     # P0/P1/P2 reply processor
 ```
 
 ## License
 
-MIT — 详见 [LICENSE](LICENSE)。
+MIT — see [LICENSE](LICENSE).
