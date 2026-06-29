@@ -16,7 +16,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/Akxan/adversarial-verify.git \
+git clone https://github.com/Arykozhang/adversarial-verify.git \
   ~/.claude/skills/adversarial-verify
 ```
 
