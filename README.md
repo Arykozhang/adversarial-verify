@@ -27,6 +27,21 @@ A **Claude Code Skill** that packs your project into structured materials and se
 
 This is not "ask AI for a few suggestions." It's a systematic audit: you package your entire project — history, iterations, failed attempts, source code, outputs — into a flat 20-file brief, and another AI attacks it from 4 directions to find the design choices you've normalized into blindness.
 
+## Who is this for?
+
+You're deep in something — code, strategy, research, product — and you *know* there are blind spots, but you can't see them yourself. This skill gives you a structured way to get an external adversarial perspective.
+
+| Role | Use case |
+|---|---|
+| **Engineers** | Pack your system architecture + source code → find regex bugs, logic gaps, edge cases your test suite misses |
+| **Founders / Strategists** | Pack your business plan + market analysis → stress-test assumptions before they cost you money |
+| **Product Managers** | Pack your PRD + competitor teardown → find UX contradictions and missing edge cases |
+| **Researchers** | Pack your methodology + dataset → audit your reasoning chain for gaps and unstated assumptions |
+| **Security Engineers** | Pack system design + threat model → let adversarial AI hunt for attack surfaces you normalized |
+| **Investors / Analysts** | Pack your investment thesis → get a devil's advocate that actually read your source materials |
+
+The common thread: **you have a system or argument that feels ~80% there, and you need someone (or something) to tell you where the last 20% is hiding.**
+
 ## Why adversarial?
 
 | Ordinary approach | Adversarial Verify |
