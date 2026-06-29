@@ -51,7 +51,21 @@
 | 收到泛泛的建议 | 收到 P0/P1/P2 分级缺陷 + 文件引用 + 修复方案 |
 | 自己判断修没修好 | 每项修复配验收标准，修完就知道 |
 
-## 安装
+## 不止 Claude Code
+
+SKILL.md 为 Claude Code 优化，但对抗验证的方法论和模板**任何 AI 平台都能用**。
+
+**在 ChatGPT、DeepSeek、Gemini 等平台手动使用：**
+
+1. 打开 `templates/message-template.md`——把 `{占位符}` 替换成你的项目信息
+2. 按 `templates/package-structure.md` 清单逐项组装材料文件
+3. 在你的 AI 中**开一个新对话**（没有任何历史上下文——这一点至关重要）
+4. 上传全部文件 + 粘贴填充好的文案
+5. 收到回复后，用 `templates/execution-command-template.md` 整理为 P0/P1/P2 执行清单
+
+跨平台的核心原则一样：**对抗AI不能有你项目之前的记忆**——所以必须把所有东西打包成扁平编号文件 + 一份告诉它往哪攻击的任务书。
+
+## 安装（Claude Code Skill）
 
 ```bash
 git clone https://github.com/Arykozhang/adversarial-verify.git \
