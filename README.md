@@ -90,7 +90,21 @@ The common thread: **you have a system or argument that feels ~80% there, and yo
 
 **Step 7** — **Interference cleanup**: after deploying fixes, purge stale artifacts (old agent scripts, expired SystemPrompts, `__pycache__`, obsolete CSVs) that could silently break the new system.
 
-## Quick install
+## Not just Claude Code
+
+While the SKILL.md format is optimized for Claude Code, the methodology and templates work with **any AI platform**.
+
+**Manual use with ChatGPT, DeepSeek, Gemini, or any LLM:**
+
+1. Open `templates/message-template.md` — replace the `{placeholders}` with your project's specifics
+2. Assemble your material files using `templates/package-structure.md` as a checklist
+3. Start a **fresh conversation** with your preferred AI (no prior context — this is critical)
+4. Upload all files + paste the filled message template
+5. When the reply arrives, use `templates/execution-command-template.md` to structure the findings for execution
+
+The key insight is the same regardless of platform: **the adversarial AI must have no prior memory of your project** — so you must package everything into flat, numbered files with a mission brief that tells it where to attack.
+
+## Quick install (Claude Code Skill)
 
 ```bash
 git clone https://github.com/Arykozhang/adversarial-verify.git \
